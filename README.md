@@ -1,9 +1,5 @@
 # Rect Evasion
 
-Arcade dodge game made with Pygame.
+Simple game in the style of "The world's hardest game"
 
-## Run (Linux)
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-python code/main.py
+Organized in levels
