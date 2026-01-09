@@ -30,10 +30,8 @@ class Player(pygame.sprite.Sprite):
             self.direction = self.direction.normalize()
         self.rect.center += dt * self.speed * self.direction
     
-class Obstacle(pygame.sprite.Sprite):
-    def __init__(self, game, color, size, anchor, pos):
-        self.game = game
-        groups = (self.game.all_sprites, self.game.obstacle_sprites)
+class Object(pygame.sprite.Sprite):
+    def __init__(self, groups, color, size, anchor, pos):
         super().__init__(groups)
         self.image = pygame.Surface(size)
         self.image.fill(color)
@@ -57,30 +55,22 @@ class Obstacle(pygame.sprite.Sprite):
             case 'midtop':
                 self.rect = self.image.get_rect(midtop=pos)
 
-class Goal(pygame.sprite.Sprite):
+class Obstacle(Object):
+    def __init__(self, game, color, size, anchor, pos):
+        self.game = game
+        groups = (self.game.all_sprites, self.game.obstacle_sprites)
+        super().__init__(groups, color, size, anchor, pos)
+
+class HealingItem(Object):
+    def __init__(self, game, size, anchor, pos):
+        self.game = game
+        groups = (self.game.all_sprites, self.game.healing_sprites)
+        color = (0, 255, 0)
+        super().__init__(groups, color, size, anchor, pos)
+
+class Goal(Object):
     def __init__(self, game, size, anchor, pos):
         self.game = game
         groups = (self.game.all_sprites, self.game.goal_sprites)
-        super().__init__(groups)
-        self.image = pygame.Surface(size)
         color = (255, 215, 0)
-        self.image.fill(color)
-        match anchor:
-            case 'center':
-                self.rect = self.image.get_rect(center=pos)
-            case 'topleft':
-                self.rect = self.image.get_rect(topleft=pos)
-            case 'midleft':
-                self.rect = self.image.get_rect(midleft=pos)
-            case 'bottomleft':
-                self.rect = self.image.get_rect(bottomleft=pos)
-            case 'midbottom':
-                self.rect = self.image.get_rect(midbottom=pos)
-            case 'bottomright':
-                self.rect = self.image.get_rect(bottomright=pos)
-            case 'midright':
-                self.rect = self.image.get_rect(midright=pos)
-            case 'topright':
-                self.rect = self.image.get_rect(topright=pos)
-            case 'midtop':
-                self.rect = self.image.get_rect(midtop=pos)
+        super().__init__(groups, color, size, anchor, pos)

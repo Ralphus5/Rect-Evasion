@@ -132,6 +132,7 @@ class Game:
                     self.level_set_up = True
                     self.player_start_pos = (100, WINDOW_CENTER[1])
                     Obstacle(self, (255,0,0), (250, 400), 'center', WINDOW_CENTER)
+                    HealingItem(self, (30, 30), 'topleft', (300, WINDOW_CENTER[1]))
                     Goal(self, (150, 150), 'midright', (WINDOW_WIDTH, WINDOW_CENTER[1]))
             case 2:
                 if not self.level_set_up:
@@ -172,6 +173,26 @@ class Game:
                 if not self.level_set_up:
                     self.level_set_up = True
                     self.player_start_pos = (WINDOW_WIDTH - 60, WINDOW_CENTER[1])
+                    Obstacle(self, (255,0,0), (1100, 40), 'topleft', (50, 0))
+                    Obstacle(self, (255,0,0), (1100, 40), 'bottomleft', (50, WINDOW_HEIGHT))
+                    Obstacle(self, (255,0,0), (400, 40), 'topleft', (400, 90))
+                    Obstacle(self, (255,0,0), (600, 40), 'topleft', (300, 300))
+                    Obstacle(self, (255,0,0), (600, 40), 'topleft', (300, 400))
+                    Obstacle(self, (255,0,0), (40, 250), 'topleft', (100, 250))
+                    Obstacle(self, (255,0,0), (50, 200), 'topleft', (200, 250))
+                    Obstacle(self, (255,0,0), (500, 40), 'topleft', (100, 500))
+                    Obstacle(self, (255,0,0), (250, 40), 'topleft', (150, 590))
+                    Obstacle(self, (255,0,0), (100, 100), 'topleft', (900, 500))
+                    Obstacle(self, (255,0,0), (100, 100), 'topleft', (100, 100))
+                    Obstacle(self, (255,0,0), (80, 100), 'topleft', (250, 50))
+                    Obstacle(self, (255,0,0), (80, 50), 'bottomleft', (150, WINDOW_HEIGHT - 40))
+                    Obstacle(self, (255,0,0), (300, 150), 'topleft', (500, 590))
+                    Obstacle(self, (255,0,0), (50, 380), 'topleft', (50, 250))
+                    Obstacle(self, (255,0,0), (100, 100), 'topleft', (560, 200))
+                    Obstacle(self, (255,0,0), (100, 100), 'topleft', (400, 130))
+                    Obstacle(self, (255,255,0), (200, 150), 'topleft', (900, 100))
+                    HealingItem(self, (30, 30), 'center', (280, 655))
+                    Goal(self, (50, 720), 'midleft', (0, WINDOW_CENTER[1]))
 
         self.all_sprites.update(dt)
         self.collisions()
@@ -220,6 +241,13 @@ class Game:
             self.level_set_up = False
             kill_sprites(self.all_sprites, exceptions=self.player_sprites)
             hit_goal.kill()
+
+        # --- heal item collision ---
+        hit_heal_item = pygame.sprite.spritecollideany(self.player, self.healing_sprites)
+        if hit_heal_item:
+            self.heal_sound.play()
+            self.player.health += 1
+            hit_heal_item.kill()
 
     def render_stats_text(self):
         self.text_surfaces['stats'] = self.fonts['stats'].render(f"Level: {self.level}    Health: {self.player.health}", True, COLOR['stats_text'])
@@ -279,6 +307,7 @@ class Game:
         self.hit_sound: pygame.mixer.Sound = pygame.mixer.Sound(join(self.AUDIO_DIR, 'hit_sound.wav'))
         self.death_sound: pygame.mixer.Sound = pygame.mixer.Sound(join(self.AUDIO_DIR, 'death_sound.wav'))
         self.reach_goal_sound: pygame.mixer.Sound = pygame.mixer.Sound(join(self.AUDIO_DIR, 'reach_goal_sound.wav'))
+        self.heal_sound: pygame.mixer.Sound = pygame.mixer.Sound(join(self.AUDIO_DIR, 'heal_sound.wav'))
 
     def set_all_volumes(self):
         # --- game music ---
@@ -288,6 +317,7 @@ class Game:
         self.hit_sound.set_volume(HIT_SOUND_VOLUME)
         self.death_sound.set_volume(DEATH_SOUND_VOLUME)
         self.reach_goal_sound.set_volume(REACH_GOAL_SOUND_VOLUME)
+        self.heal_sound.set_volume(HEAL_SOUND_VOLUME)
 
     def load_graphics(self):
         self.font_1 = join(self.FONT_DIR,'gomarice_no_continue.ttf')
@@ -319,11 +349,12 @@ class Game:
         self.player_sprites = pygame.sprite.Group()
         self.obstacle_sprites = pygame.sprite.Group()
         self.goal_sprites = pygame.sprite.Group()
+        self.healing_sprites = pygame.sprite.Group()
         self.effect_sprites = pygame.sprite.Group()
 
     def init_game_state(self):
         self.level_set_up = False
-        self.level = 4
+        self.level = 5
         self.show_start_hint = False
         self.show_game_over_hint = False
         self.player = Player(self, (self.all_sprites, self.player_sprites), (100, WINDOW_CENTER[1]))

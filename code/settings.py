@@ -23,8 +23,8 @@ COLOR: dict = {'start_screen_bg': "#440083",
 STATS_TEXT_FONT_SIZE: int = 25
 PUBLISHER_FONT_SIZE: int = 25
 HINT_FONT_SITZE: int = 25
-TITLE_FONT_SIZE: int = 100
-GAME_OVER_FONT_SIZE: int = 100
+TITLE_FONT_SIZE: int = 110
+GAME_OVER_FONT_SIZE: int = 110
 
 
 # --- AUDIO ---
@@ -32,6 +32,7 @@ GAME_OVER_FONT_SIZE: int = 100
 HIT_SOUND_VOLUME: Annotated[float, (0.0-1.0)] = 1.0
 DEATH_SOUND_VOLUME: Annotated[float, (0.0-1.0)] = 1.0
 REACH_GOAL_SOUND_VOLUME: Annotated[float, (0.0-1.0)] = 1.0
+HEAL_SOUND_VOLUME: Annotated[float, (0.0-1.0)] = 1.0
 
 
 # --- Gameplay ---
