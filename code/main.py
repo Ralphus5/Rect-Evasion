@@ -190,9 +190,313 @@ class Game:
                     Obstacle(self, (255,0,0), (50, 380), 'topleft', (50, 250))
                     Obstacle(self, (255,0,0), (100, 100), 'topleft', (560, 200))
                     Obstacle(self, (255,0,0), (100, 100), 'topleft', (400, 130))
-                    Obstacle(self, (255,255,0), (200, 150), 'topleft', (900, 100))
+                    Obstacle(self, (255,0,0), (250, 150), 'topleft', (850, 90))
                     HealingItem(self, (30, 30), 'center', (280, 655))
                     Goal(self, (50, 720), 'midleft', (0, WINDOW_CENTER[1]))
+            case 6:
+                if not self.level_set_up:
+                    self.level_set_up = True
+                    self.player_start_pos = (50, WINDOW_CENTER[1])
+                    Obstacle(self, (255,0,0), (500, 100), 'center', (WINDOW_CENTER[0], 50))
+                    Obstacle(self, (255,0,0), (500, 100), 'center', (WINDOW_CENTER[0], WINDOW_HEIGHT - 50))
+                    RotatingObstacle(self, (255,100,0), (520, 40), 'center', (WINDOW_CENTER), rotation_speed=120)
+                    Goal(self, (50, 150), 'midright', (WINDOW_WIDTH, WINDOW_CENTER[1]))
+            case 7:
+                if not self.level_set_up:
+                    self.level_set_up = True
+                    self.player_start_pos = (WINDOW_WIDTH - 50, WINDOW_CENTER[1])
+                    Obstacle(self, (255,0,0), (WINDOW_WIDTH, 30), 'midtop', (WINDOW_CENTER[0], 0))
+                    Obstacle(self, (255,0,0), (WINDOW_WIDTH, 30), 'midbottom', (WINDOW_CENTER[0], WINDOW_HEIGHT))
+                    RotatingObstacle(self, (255,100,0), (250, 25), 'center', (WINDOW_CENTER[0]+200, 150), rotation_speed=250)
+                    RotatingObstacle(self, (255,100,0), (250, 25), 'center', (WINDOW_CENTER[0]+200, WINDOW_CENTER[1]), rotation_speed=-250)
+                    RotatingObstacle(self, (255,100,0), (250, 25), 'center', (WINDOW_CENTER[0]+200, 570), rotation_speed=250)
+                    RotatingObstacle(self, (255,100,0), (250, 25), 'center', (WINDOW_CENTER[0]-200, 150), rotation_speed=-250)
+                    RotatingObstacle(self, (255,100,0), (250, 25), 'center', (WINDOW_CENTER[0]-200, WINDOW_CENTER[1]), rotation_speed=250)
+                    RotatingObstacle(self, (255,100,0), (250, 25), 'center', (WINDOW_CENTER[0]-200, 570), rotation_speed=-250)
+                    HealingItem(self, (30, 30), 'center', (WINDOW_CENTER[0]+150, 250))
+                    Goal(self, (100, 100), 'midleft', (0, WINDOW_CENTER[1]))
+            case 8:
+                if not self.level_set_up:
+                    pass
+            case 9:
+                if not self.level_set_up:
+                    pass
+            case 10:
+                if not self.level_set_up:
+                    pass
+            case 11:
+                if not self.level_set_up:
+                    pass
+            case 12:
+                if not self.level_set_up:
+                    pass
+            case 13:
+                if not self.level_set_up:
+                    pass
+            case 14:
+                if not self.level_set_up:
+                    pass
+            case 15:
+                if not self.level_set_up:
+                    pass
+            case 16:
+                if not self.level_set_up:
+                    pass
+            case 17:
+                if not self.level_set_up:
+                    pass
+            case 18:
+                if not self.level_set_up:
+                    pass
+            case 19:
+                if not self.level_set_up:
+                    pass
+            case 20:
+                if not self.level_set_up:
+                    pass
+            case 21:
+                if not self.level_set_up:
+                    pass
+            case 22:
+                if not self.level_set_up:
+                    pass
+            case 23:
+                if not self.level_set_up:
+                    pass
+            case 24:
+                if not self.level_set_up:
+                    pass
+            case 25:
+                if not self.level_set_up:
+                    pass
+            case 26:
+                if not self.level_set_up:
+                    pass
+            case 27:
+                if not self.level_set_up:
+                    pass
+            case 28:
+                if not self.level_set_up:
+                    pass
+            case 29:
+                if not self.level_set_up:
+                    pass
+            case 30:
+                if not self.level_set_up:
+                    pass
+            case 31:
+                if not self.level_set_up:
+                    pass
+            case 32:
+                if not self.level_set_up:
+                    pass
+            case 33:
+                if not self.level_set_up:
+                    pass
+            case 34:
+                if not self.level_set_up:
+                    pass
+            case 35:
+                if not self.level_set_up:
+                    pass
+            case 36:
+                if not self.level_set_up:
+                    pass
+            case 37:
+                if not self.level_set_up:
+                    pass
+            case 38:
+                if not self.level_set_up:
+                    pass
+            case 39:
+                if not self.level_set_up:
+                    pass
+            case 40:
+                if not self.level_set_up:
+                    pass
+            case 41:
+                if not self.level_set_up:
+                    pass
+            case 42:
+                if not self.level_set_up:
+                    pass
+            case 43:
+                if not self.level_set_up:
+                    pass
+            case 44:
+                if not self.level_set_up:
+                    pass
+            case 45:
+                if not self.level_set_up:
+                    pass
+            case 46:
+                if not self.level_set_up:
+                    pass
+            case 47:
+                if not self.level_set_up:
+                    pass
+            case 48:
+                if not self.level_set_up:
+                    pass
+            case 49:
+                if not self.level_set_up:
+                    pass
+            case 50:
+                if not self.level_set_up:
+                    pass
+            case 51:
+                if not self.level_set_up:
+                    pass
+            case 52:
+                if not self.level_set_up:
+                    pass
+            case 53:
+                if not self.level_set_up:
+                    pass
+            case 54:
+                if not self.level_set_up:
+                    pass
+            case 55:
+                if not self.level_set_up:
+                    pass
+            case 56:
+                if not self.level_set_up:
+                    pass
+            case 57:
+                if not self.level_set_up:
+                    pass
+            case 58:
+                if not self.level_set_up:
+                    pass
+            case 59:
+                if not self.level_set_up:
+                    pass
+            case 60:
+                if not self.level_set_up:
+                    pass
+            case 61:
+                if not self.level_set_up:
+                    pass
+            case 62:
+                if not self.level_set_up:
+                    pass
+            case 63:
+                if not self.level_set_up:
+                    pass
+            case 64:
+                if not self.level_set_up:
+                    pass
+            case 65:
+                if not self.level_set_up:
+                    pass
+            case 66:
+                if not self.level_set_up:
+                    pass
+            case 67:
+                if not self.level_set_up:
+                    pass
+            case 68:
+                if not self.level_set_up:
+                    pass
+            case 69:
+                if not self.level_set_up:
+                    pass
+            case 70:
+                if not self.level_set_up:
+                    pass
+            case 71:
+                if not self.level_set_up:
+                    pass
+            case 72:
+                if not self.level_set_up:
+                    pass
+            case 73:
+                if not self.level_set_up:
+                    pass
+            case 74:
+                if not self.level_set_up:
+                    pass
+            case 75:
+                if not self.level_set_up:
+                    pass
+            case 76:
+                if not self.level_set_up:
+                    pass
+            case 77:
+                if not self.level_set_up:
+                    pass
+            case 78:
+                if not self.level_set_up:
+                    pass
+            case 79:
+                if not self.level_set_up:
+                    pass
+            case 80:
+                if not self.level_set_up:
+                    pass
+            case 81:
+                if not self.level_set_up:
+                    pass
+            case 82:
+                if not self.level_set_up:
+                    pass
+            case 83:
+                if not self.level_set_up:
+                    pass
+            case 84:
+                if not self.level_set_up:
+                    pass
+            case 85:
+                if not self.level_set_up:
+                    pass
+            case 86:
+                if not self.level_set_up:
+                    pass
+            case 87:
+                if not self.level_set_up:
+                    pass
+            case 88:
+                if not self.level_set_up:
+                    pass
+            case 89:
+                if not self.level_set_up:
+                    pass
+            case 90:
+                if not self.level_set_up:
+                    pass
+            case 91:
+                if not self.level_set_up:
+                    pass
+            case 92:
+                if not self.level_set_up:
+                    pass
+            case 93:
+                if not self.level_set_up:
+                    pass
+            case 94:
+                if not self.level_set_up:
+                    pass
+            case 95:
+                if not self.level_set_up:
+                    pass
+            case 96:
+                if not self.level_set_up:
+                    pass
+            case 97:
+                if not self.level_set_up:
+                    pass
+            case 98:
+                if not self.level_set_up:
+                    pass
+            case 99:
+                if not self.level_set_up:
+                    pass
+            case 100:
+                if not self.level_set_up:
+                    pass
+            case _:
+                # game beaten
+                pass
 
         self.all_sprites.update(dt)
         self.collisions()
@@ -222,7 +526,7 @@ class Game:
             return
 
         # --- obstacle collisions ---
-        hit_obstacle = pygame.sprite.spritecollideany(self.player, self.obstacle_sprites)
+        hit_obstacle = pygame.sprite.spritecollide(self.player, self.obstacle_sprites, False, pygame.sprite.collide_mask)
         if hit_obstacle:
             self.player.health -= 1
             if self.player.health >= 1:
@@ -354,7 +658,7 @@ class Game:
 
     def init_game_state(self):
         self.level_set_up = False
-        self.level = 5
+        self.level = 7
         self.show_start_hint = False
         self.show_game_over_hint = False
         self.player = Player(self, (self.all_sprites, self.player_sprites), (100, WINDOW_CENTER[1]))

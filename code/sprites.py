@@ -7,6 +7,7 @@ class Player(pygame.sprite.Sprite):
         super().__init__(groups)
         self.image = pygame.Surface((30, 30))
         self.image.fill('blue')
+        self.mask = pygame.mask.from_surface(self.image)
         self.rect = self.image.get_rect(topleft=pos)
         self.direction = pygame.math.Vector2(0, 0)
         self.health = PLAYER_HEALTH
@@ -33,8 +34,9 @@ class Player(pygame.sprite.Sprite):
 class Object(pygame.sprite.Sprite):
     def __init__(self, groups, color, size, anchor, pos):
         super().__init__(groups)
-        self.image = pygame.Surface(size)
+        self.image = pygame.Surface(size, pygame.SRCALPHA).convert_alpha()
         self.image.fill(color)
+        self.mask = pygame.mask.from_surface(self.image)
         match anchor:
             case 'center':
                 self.rect = self.image.get_rect(center=pos)
@@ -61,12 +63,34 @@ class Obstacle(Object):
         groups = (self.game.all_sprites, self.game.obstacle_sprites)
         super().__init__(groups, color, size, anchor, pos)
 
+class RotatingObstacle(Object):
+    def __init__(self, game, color, size, anchor, pos, rotation_speed):
+        self.game = game
+        groups = (self.game.all_sprites, self.game.obstacle_sprites)
+        super().__init__(groups, color, size, anchor, pos)
+        self.rotation_speed = rotation_speed
+        self.original_image = self.image.copy()
+        self.angle = 0
+        self._center = self.rect.center
+
+    def update(self, dt):
+        self.angle = (self.angle + self.rotation_speed * dt) % 360
+        self.image = pygame.transform.rotozoom(self.original_image, self.angle, 1)
+        self.rect = self.image.get_rect(center=self._center)
+        self.mask = pygame.mask.from_surface(self.image)
+
 class HealingItem(Object):
     def __init__(self, game, size, anchor, pos):
         self.game = game
         groups = (self.game.all_sprites, self.game.healing_sprites)
         color = (0, 255, 0)
         super().__init__(groups, color, size, anchor, pos)
+        self.base_y = self.rect.y
+
+    def update(self, dt):
+        # slowly move up and down
+        t = perf_counter()
+        self.rect.y = self.base_y + abs(int(sin(t * 2) * 6))
 
 class Goal(Object):
     def __init__(self, game, size, anchor, pos):
