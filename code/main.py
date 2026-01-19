@@ -13,6 +13,8 @@ class Game:
         self.state = None
         self.requested_state = 'start'
         self.running = True
+        self.start_time = perf_counter()
+        self.hit_time = 0
 
 # --- Game modes ---
     def run(self):
@@ -204,7 +206,7 @@ class Game:
             case 7:
                 if not self.level_set_up:
                     self.level_set_up = True
-                    self.player_start_pos = (WINDOW_WIDTH - 50, WINDOW_CENTER[1])
+                    self.player_start_pos = (WINDOW_WIDTH-100, WINDOW_CENTER[1])
                     Obstacle(self, (255,0,0), (WINDOW_WIDTH, 30), 'midtop', (WINDOW_CENTER[0], 0))
                     Obstacle(self, (255,0,0), (WINDOW_WIDTH, 30), 'midbottom', (WINDOW_CENTER[0], WINDOW_HEIGHT))
                     RotatingObstacle(self, (255,100,0), (250, 25), 'center', (WINDOW_CENTER[0]+200, 150), rotation_speed=250)
@@ -214,286 +216,397 @@ class Game:
                     RotatingObstacle(self, (255,100,0), (250, 25), 'center', (WINDOW_CENTER[0]-200, WINDOW_CENTER[1]), rotation_speed=250)
                     RotatingObstacle(self, (255,100,0), (250, 25), 'center', (WINDOW_CENTER[0]-200, 570), rotation_speed=-250)
                     HealingItem(self, (30, 30), 'center', (WINDOW_CENTER[0]+150, 250))
-                    Goal(self, (100, 100), 'midleft', (0, WINDOW_CENTER[1]))
+                    Goal(self, (100, 100), 'midleft', (0, WINDOW_CENTER[1]+50))
             case 8:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = (80, WINDOW_CENTER[1]+50)
+                    Obstacle(self, color=(255,0,0), size=(1100, 30), anchor='bottomleft', pos=(0, WINDOW_HEIGHT-150))
+                    Obstacle(self, color=(255,0,0), size=(30, 400), anchor='bottomleft', pos=(200, WINDOW_HEIGHT-150))
+                    Obstacle(self, color=(255,0,0), size=(900, 30), anchor='bottomleft', pos=(200, 170))
+                    Obstacle(self, color=(255,0,0), size=(900, 30), anchor='bottomleft', pos=(400, 330))
+                    # top row
+                    RotatingObstacle(self, color=(255,100,0), size=(300,20), anchor='center', pos=(350, 150), rotation_speed=-200)
+                    RotatingObstacle(self, color=(255,100,0), size=(300,20), anchor='center', pos=(650, 150), rotation_speed=-200)
+                    RotatingObstacle(self, color=(255,100,0), size=(300,20), anchor='center', pos=(950, 150), rotation_speed=-200)
+                    # middle row
+                    RotatingObstacle(self, color=(255,100,0), size=(210,20), anchor='center', pos=(520, 435), rotation_speed=+250)
+                    RotatingObstacle(self, color=(255,100,0), size=(210,20), anchor='center', pos=(750, 435), rotation_speed=+250)
+                    RotatingObstacle(self, color=(255,100,0), size=(210,20), anchor='center', pos=(980, 435), rotation_speed=+250)
+                    # bottom row
+                    RotatingObstacle(self, color=(255,100,0), size=(160,20), anchor='center', pos=(520, 650), rotation_speed=-250)
+                    RotatingObstacle(self, color=(255,100,0), size=(160,20), anchor='center', pos=(750, 650), rotation_speed=+250)
+                    RotatingObstacle(self, color=(255,100,0), size=(160,20), anchor='center', pos=(980, 650), rotation_speed=-250)
+                    HealingItem(self, (30,30), 'center', (750, 370))
+                    Goal(self, (100, 100), 'bottomleft', (50, WINDOW_HEIGHT-25))
             case 9:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 10:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 11:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 12:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 13:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 14:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 15:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 16:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 17:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 18:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 19:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 20:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 21:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 22:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 23:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 24:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 25:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 26:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 27:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 28:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 29:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 30:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 31:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 32:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 33:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 34:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 35:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 36:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 37:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 38:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 39:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 40:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 41:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 42:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 43:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 44:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 45:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 46:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 47:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 48:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 49:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 50:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 51:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 52:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 53:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 54:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 55:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 56:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 57:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 58:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 59:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 60:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 61:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 62:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 63:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 64:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 65:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 66:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 67:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 68:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 69:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 70:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 71:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 72:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 73:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 74:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 75:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 76:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 77:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 78:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 79:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 80:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 81:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 82:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 83:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 84:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 85:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 86:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 87:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 88:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 89:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 90:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 91:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 92:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 93:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 94:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 95:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 96:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 97:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 98:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 99:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case 100:
                 if not self.level_set_up:
-                    pass
+                    self.level_set_up = True
+                    self.player_start_pos = None
             case _:
                 # game beaten
                 pass
@@ -532,6 +645,7 @@ class Game:
             if self.player.health >= 1:
                 self.hit_sound.play()
                 self.player.rect.topleft = self.player_start_pos
+                self.hit_time = self.runtime
             else:
                 self.death_sound.play()
                 self.player.kill()
@@ -658,10 +772,14 @@ class Game:
 
     def init_game_state(self):
         self.level_set_up = False
-        self.level = 7
+        self.level = 1
         self.show_start_hint = False
         self.show_game_over_hint = False
         self.player = Player(self, (self.all_sprites, self.player_sprites), (100, WINDOW_CENTER[1]))
+
+    @property
+    def runtime(self):
+        return perf_counter() - self.start_time
 
 # --- main execution ---
 def main():

@@ -38,6 +38,7 @@ HEAL_SOUND_VOLUME: Annotated[float, (0.0-1.0)] = 1.0
 # --- Gameplay ---
 PLAYER_HEALTH: int = 3
 PLAYER_SPEED: Annotated[float, (50.0-1000.0)] = 550.0
+UNMOVABLE_AFTER_HIT_TIME: float = 0.5
 
 
 # --- DEFAULT KEY BINDINGS ---

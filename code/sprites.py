@@ -27,6 +27,10 @@ class Player(pygame.sprite.Sprite):
         self.direction.y = int(keys[KEY_BINDINGS["move_down"]]) - int(keys[KEY_BINDINGS["move_up"]])
 
     def apply_movement(self, dt):
+        if self.game.hit_time and self.game.runtime - self.game.hit_time < UNMOVABLE_AFTER_HIT_TIME:
+            return
+        else: 
+            self.game.hit_time = 0
         if self.direction.length_squared() != 0:
             self.direction = self.direction.normalize()
         self.rect.center += dt * self.speed * self.direction
