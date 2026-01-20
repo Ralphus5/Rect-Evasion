@@ -26,6 +26,9 @@ class Player(pygame.sprite.Sprite):
         self.direction.x = int(keys[KEY_BINDINGS["move_right"]]) - int(keys[KEY_BINDINGS["move_left"]])
         self.direction.y = int(keys[KEY_BINDINGS["move_down"]]) - int(keys[KEY_BINDINGS["move_up"]])
 
+        # --- slow down ---
+        self.speed = PLAYER_SLOWED_SPEED if keys[KEY_BINDINGS["slow_down"]] else PLAYER_SPEED
+
     def apply_movement(self, dt):
         if self.game.hit_time and self.game.runtime - self.game.hit_time < UNMOVABLE_AFTER_HIT_TIME:
             return
@@ -68,13 +71,13 @@ class Obstacle(Object):
         super().__init__(groups, color, size, anchor, pos)
 
 class RotatingObstacle(Object):
-    def __init__(self, game, color, size, anchor, pos, rotation_speed):
+    def __init__(self, game, color, size, anchor, pos, start_rotation=0, rotation_speed=100):
         self.game = game
         groups = (self.game.all_sprites, self.game.obstacle_sprites)
         super().__init__(groups, color, size, anchor, pos)
         self.rotation_speed = rotation_speed
         self.original_image = self.image.copy()
-        self.angle = 0
+        self.angle = start_rotation
         self._center = self.rect.center
 
     def update(self, dt):

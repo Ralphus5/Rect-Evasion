@@ -234,19 +234,48 @@ class Game:
                     RotatingObstacle(self, color=(255,100,0), size=(210,20), anchor='center', pos=(750, 435), rotation_speed=+250)
                     RotatingObstacle(self, color=(255,100,0), size=(210,20), anchor='center', pos=(980, 435), rotation_speed=+250)
                     # bottom row
-                    RotatingObstacle(self, color=(255,100,0), size=(160,20), anchor='center', pos=(520, 650), rotation_speed=-250)
-                    RotatingObstacle(self, color=(255,100,0), size=(160,20), anchor='center', pos=(750, 650), rotation_speed=+250)
+                    RotatingObstacle(self, color=(255,100,0), size=(160,20), anchor='center', pos=(400, 650), rotation_speed=-250)
+                    RotatingObstacle(self, color=(255,100,0), size=(160,20), anchor='center', pos=(690, 650), rotation_speed=+250)
                     RotatingObstacle(self, color=(255,100,0), size=(160,20), anchor='center', pos=(980, 650), rotation_speed=-250)
                     HealingItem(self, (30,30), 'center', (750, 370))
-                    Goal(self, (100, 100), 'bottomleft', (50, WINDOW_HEIGHT-25))
+                    Goal(self, (50, 100), 'bottomleft', (50, WINDOW_HEIGHT-25))
             case 9:
                 if not self.level_set_up:
                     self.level_set_up = True
-                    self.player_start_pos = None
+                    self.player_start_pos = (100, WINDOW_HEIGHT-75)
+                    Obstacle(self, color=(255,0,0), size=(500, 30), anchor='bottomleft', pos=(600, 600))
+                    Obstacle(self, color=(255,0,0), size=(650, 30), anchor='bottomleft', pos=(600, WINDOW_HEIGHT))
+                    Obstacle(self, color=(255,0,0), size=(30, 600), anchor='bottomleft', pos=(1250, WINDOW_HEIGHT))
+                    Obstacle(self, color=(255,0,0), size=(650, 30), anchor='bottomleft', pos=(600, 150))
+                    Obstacle(self, color=(255,0,0), size=(30, 300), anchor='bottomleft', pos=(1100, 600))
+                    Obstacle(self, color=(255,0,0), size=(400, 30), anchor='bottomleft', pos=(730, 300))
+                    Obstacle(self, color=(255,0,0), size=(30, 200), anchor='bottomleft', pos=(700, 470))
+                    Obstacle(self, color=(255,0,0), size=(30, 450), anchor='bottomleft', pos=(600, 600))
+                    Obstacle(self, color=(255,0,0), size=(300, 30), anchor='bottomleft', pos=(700, 500))
+                    Obstacle(self, color=(255,0,0), size=(200, 100), anchor='bottomleft', pos=(800, 470))
+                    RotatingObstacle(self, color=(255,100,0), size=(1000,20), anchor='center', pos=(WINDOW_CENTER[0]+275, WINDOW_CENTER[1]+50), rotation_speed=+125)
+                    HealingItem(self, (30,30), 'center', (850, 50))
+                    Goal(self, (50, 50), 'bottomleft', (740, 460))
             case 10:
                 if not self.level_set_up:
                     self.level_set_up = True
-                    self.player_start_pos = None
+                    self.player_start_pos = (720, 400)
+                    Obstacle(self, color=(255,0,0), size=(900, 30), anchor='bottomleft', pos=(150, 550))
+                    Obstacle(self, color=(255,0,0), size=(1000, 30), anchor='bottomleft', pos=(300, 300))
+                    Obstacle(self, color=(255,0,0), size=(1000, 30), anchor='topleft', pos=(150, 100))
+                    Obstacle(self, color=(255,0,0), size=(30, 450), anchor='topleft', pos=(150, 100))
+                    Obstacle(self, color=(255,0,0), size=(30, 250), anchor='topleft', pos=(830, 300))
+                    RotatingObstacle(self, color=(255,100,0), size=(300,20), anchor='center', pos=(450, 535), start_rotation=50, rotation_speed=+250)
+                    RotatingObstacle(self, color=(255,100,0), size=(300,20), anchor='center', pos=(300, 285), rotation_speed=-250)
+                    RotatingObstacle(self, color=(255,100,0), size=(150,20), anchor='center', pos=(650, 200), rotation_speed=-200)
+                    RotatingObstacle(self, color=(255,100,0), size=(150,20), anchor='center', pos=(1000, 200), rotation_speed=-250)
+                    RotatingObstacle(self, color=(255,100,0), size=(100,20), anchor='center', pos=(800, 50), rotation_speed=+150)
+                    RotatingObstacle(self, color=(255,100,0), size=(100,20), anchor='center', pos=(600, 50), rotation_speed=+175)
+                    RotatingObstacle(self, color=(255,100,0), size=(100,20), anchor='center', pos=(400, 50), rotation_speed=+200)
+                    RotatingObstacle(self, color=(255,100,0), size=(300,20), anchor='center', pos=(450, 700), start_rotation=150,rotation_speed=-250)
+                    RotatingObstacle(self, color=(255,100,0), size=(200,20), anchor='center', pos=(1000, 650), rotation_speed=-500)
+                    RotatingObstacle(self, color=(255,100,0), size=(180,20), anchor='center', pos=(1150, 500), start_rotation=50, rotation_speed=-500)
+                    Goal(self, (100, 100), 'bottomleft', (900, 450))
             case 11:
                 if not self.level_set_up:
                     self.level_set_up = True
@@ -772,7 +801,7 @@ class Game:
 
     def init_game_state(self):
         self.level_set_up = False
-        self.level = 1
+        self.level = 10
         self.show_start_hint = False
         self.show_game_over_hint = False
         self.player = Player(self, (self.all_sprites, self.player_sprites), (100, WINDOW_CENTER[1]))

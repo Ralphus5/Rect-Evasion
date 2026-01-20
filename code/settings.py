@@ -37,8 +37,9 @@ HEAL_SOUND_VOLUME: Annotated[float, (0.0-1.0)] = 1.0
 
 # --- Gameplay ---
 PLAYER_HEALTH: int = 3
-PLAYER_SPEED: Annotated[float, (50.0-1000.0)] = 550.0
-UNMOVABLE_AFTER_HIT_TIME: float = 0.5
+PLAYER_SPEED: Annotated[int, (50-1000)] = 550
+PLAYER_SLOWED_SPEED: Annotated[int, (50-500)] = 150
+UNMOVABLE_AFTER_HIT_TIME: float = 0.6
 
 
 # --- DEFAULT KEY BINDINGS ---
@@ -46,5 +47,6 @@ KEY_BINDINGS: dict[str:int] = {'move_left': pygame.K_a,
                                'move_right': pygame.K_d,
                                'move_up': pygame.K_w,
                                'move_down': pygame.K_s,
+                               'slow_down': pygame.K_RETURN,
                                'fullscreen': pygame.K_F11}
 
