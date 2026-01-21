@@ -302,19 +302,40 @@ class Game:
                     VerticalMovingObstacle(self, (255,0,100), (30, 250), 'center', (800, -150), move_range=5000, speed=1600)
                     VerticalMovingObstacle(self, (255,0,100), (30, 250), 'center', (1000,-150), move_range=5000, speed=1600)
                     #second wave
-                    VerticalMovingObstacle(self, (255,0,100), (30, 250), 'center', (500, -550), move_range=5000, speed=1600)
-                    VerticalMovingObstacle(self, (255,0,100), (30, 250), 'center', (700, -550), move_range=5000, speed=1600)
-                    VerticalMovingObstacle(self, (255,0,100), (30, 250), 'center', (900, -550), move_range=5000, speed=1600)
-                    VerticalMovingObstacle(self, (255,0,100), (30, 250), 'center', (1100,-550), move_range=5000, speed=1600)
+                    VerticalMovingObstacle(self, (255,0,100), (30, 250), 'center', (500, -800), move_range=5000, speed=1600)
+                    VerticalMovingObstacle(self, (255,0,100), (30, 250), 'center', (700, -800), move_range=5000, speed=1600)
+                    VerticalMovingObstacle(self, (255,0,100), (30, 250), 'center', (900, -800), move_range=5000, speed=1600)
+                    VerticalMovingObstacle(self, (255,0,100), (30, 250), 'center', (1100,-800), move_range=5000, speed=1600)
                     Goal(self, (100, 144), 'bottomright', (1289.9999999999998, WINDOW_HEIGHT))
             case 13:
                 if not self.level_set_up:
                     self.level_set_up = True
-                    self.player_start_pos = None
+                    self.player_start_pos = (WINDOW_WIDTH-100, WINDOW_HEIGHT-100)
+                    Obstacle(self, (255,0,0), (1280, 50), 'midtop', (WINDOW_CENTER[0], 0))
+                    # first column
+                    Obstacle(self, (255,0,0), (30, 550), 'topright', (1030, 200))
+                    HorizontalMovingObstacle(self, (255,0,100), (100, 30), 'center', (1080, 500), move_range=150, speed=550)
+                    HorizontalMovingObstacle(self, (255,0,100), (100, 30), 'center', (1080, 300), move_range=150, speed=550)
+                    # second column
+                    Obstacle(self, (255,0,0), (30, 550), 'topright', (730, 25))
+                    HorizontalMovingObstacle(self, (255,0,100), (100, 30), 'center', (780, 500), move_range=170, speed=600)
+                    HorizontalMovingObstacle(self, (255,0,100), (100, 30), 'center', (780, 300), move_range=170, speed=600)
+                    # third column
+                    Obstacle(self, (255,0,0), (30, 550), 'topright', (430, 200))
+                    VerticalMovingObstacle(self, (255,0,100), (140, 30), 'center', (500, 215), move_range=300, init_dir=-1, speed=300)
+                    VerticalMovingObstacle(self, (255,0,100), (130, 30), 'center', (635, 260), move_range=300, speed=300)
+                    # left chunk
+                    Obstacle(self, (255,0,0), (250, 250), 'center', (190, 500))
+                    VerticalMovingObstacle(self, (255,0,100), (85, 30), 'center', (357, 215), move_range=400, speed=375)
+                    VerticalMovingObstacle(self, (255,0,100), (70, 30), 'center', (30, 215), move_range=400, speed=375)
+                    Goal(self, (100, 100), 'center', (190, 675))
             case 14:
                 if not self.level_set_up:
                     self.level_set_up = True
-                    self.player_start_pos = None
+                    self.player_start_pos = (240, 650)
+                    HorizontalMovingObstacle(self, (255,0,100), (200, 30), 'topleft', (0, 450), move_range=200, speed=500)
+                    VerticalMovingObstacle(self, (255,0,100), (30, 180), 'bottomleft', (400, 630), move_range=90, init_dir=-1, speed=300)
+                    # to be continued
             case 15:
                 if not self.level_set_up:
                     self.level_set_up = True
@@ -837,7 +858,7 @@ class Game:
 
     def init_game_state(self):
         self.level_set_up = False
-        self.level = 1
+        self.level = 14
         self.show_start_hint = False
         self.show_game_over_hint = False
         self.player = Player(self, (self.all_sprites, self.player_sprites), (50, WINDOW_CENTER[1]))

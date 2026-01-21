@@ -106,15 +106,21 @@ class HorizontalMovingObstacle(Object):
             self.direction = -1
 
 class VerticalMovingObstacle(Object):
-    def __init__(self, game, color, size, anchor, pos, move_range, speed=150):
+    def __init__(self, game, color, size, anchor, pos, move_range, init_dir=1, speed=150):
         self.game = game
         groups = (self.game.all_sprites, self.game.obstacle_sprites)
         super().__init__(groups, color, size, anchor, pos)
         self.start_y = self.rect.y
         self.move_range = move_range
         self.speed = speed
-        self.direction = 1
-        self.hight = size[1]
+        self.direction = init_dir
+        self.height = size[1]
+
+        # Set initial position based on direction
+        if self.direction == 1:  # Moving down
+            self.rect.y = self.start_y
+        elif self.direction == -1:  # Moving up
+            self.rect.y = self.start_y + self.move_range
 
     def update(self, dt):
         self.rect.y += self.direction * self.speed * dt
@@ -124,8 +130,8 @@ class VerticalMovingObstacle(Object):
         elif self.rect.y > self.start_y + self.move_range:
             self.rect.y = self.start_y + self.move_range
             self.direction = -1
-        if self.rect.y > WINDOW_HEIGHT+self.hight:
-            self.rect.y = -self.hight
+        if self.rect.y > WINDOW_HEIGHT + self.height:
+            self.rect.y = -self.height
 
 class HealingItem(Object):
     def __init__(self, game, size, anchor, pos):
