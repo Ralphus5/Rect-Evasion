@@ -102,12 +102,15 @@ class Game:
 
         elif new == 'play':
             if old == 'start':
+                self.play_start = perf_counter()
                 pygame.mixer.music.load(join(self.AUDIO_DIR, 'play_track.wav'))
-                pygame.mixer.music.play()
+                pygame.mixer.music.play(loops=-1)
             elif old == 'stop':
+                resume_play_time(self)
                 pygame.mixer.music.unpause()
 
         elif new == 'stop':
+            pause_play_time(self)
             pygame.mixer.music.pause()
             
         elif new == 'game_over':
@@ -127,6 +130,7 @@ class Game:
             self.screen.blit(self.text_surfaces['start_hint'], self.text_rects['start_hint'])
 
     def play_loop(self, dt):
+        update_play_time(self)
         self.screen.fill(COLOR['gameplay_bg'])
         match self.level:
             case 1:
@@ -279,11 +283,30 @@ class Game:
             case 11:
                 if not self.level_set_up:
                     self.level_set_up = True
-                    self.player_start_pos = None
+                    self.player_start_pos = (1000, 375)
+                    Obstacle(self, (255,0,0), (1280, 30), 'topright', (1280, 550))
+                    Obstacle(self, (255,0,0), (1280, 30), 'topright', (1280, 250))
+                    VerticalMovingObstacle(self, (255,0,100), (30, 100), 'center', (750, WINDOW_CENTER[1]-28), move_range=166, speed=300)
+                    VerticalMovingObstacle(self, (255,0,100), (30, 100), 'center', (550, WINDOW_CENTER[1]-28), move_range=166, speed=400)
+                    VerticalMovingObstacle(self, (255,0,100), (30, 100), 'center', (350, WINDOW_CENTER[1]-28), move_range=166, speed=500)
+                    VerticalMovingObstacle(self, (255,0,100), (30, 100), 'center', (150, WINDOW_CENTER[1]-28), move_range=166, speed=600)
+                    HealingItem(self, (30, 30), 'topleft', (1160, 385))
+                    Goal(self, (50, 270), 'topleft', (0, 280))
             case 12:
                 if not self.level_set_up:
                     self.level_set_up = True
-                    self.player_start_pos = None
+                    self.player_start_pos = (50, WINDOW_CENTER[1]-20)
+                    # first wave
+                    VerticalMovingObstacle(self, (255,0,100), (30, 250), 'center', (400, -150), move_range=5000, speed=1600)
+                    VerticalMovingObstacle(self, (255,0,100), (30, 250), 'center', (600, -150), move_range=5000, speed=1600)
+                    VerticalMovingObstacle(self, (255,0,100), (30, 250), 'center', (800, -150), move_range=5000, speed=1600)
+                    VerticalMovingObstacle(self, (255,0,100), (30, 250), 'center', (1000,-150), move_range=5000, speed=1600)
+                    #second wave
+                    VerticalMovingObstacle(self, (255,0,100), (30, 250), 'center', (500, -550), move_range=5000, speed=1600)
+                    VerticalMovingObstacle(self, (255,0,100), (30, 250), 'center', (700, -550), move_range=5000, speed=1600)
+                    VerticalMovingObstacle(self, (255,0,100), (30, 250), 'center', (900, -550), move_range=5000, speed=1600)
+                    VerticalMovingObstacle(self, (255,0,100), (30, 250), 'center', (1100,-550), move_range=5000, speed=1600)
+                    Goal(self, (100, 144), 'bottomright', (1289.9999999999998, WINDOW_HEIGHT))
             case 13:
                 if not self.level_set_up:
                     self.level_set_up = True
@@ -644,11 +667,13 @@ class Game:
         self.collisions()
         self.all_sprites.draw(self.screen)
         self.render_stats_text()
+        self.render_timer_text()
 
     def pause_menu(self, dt):
         self.screen.fill(COLOR['gameplay_bg'])
         self.all_sprites.draw(self.screen)
         self.render_stats_text()
+        self.render_timer_text()
         dim = pygame.Surface((WINDOW_WIDTH, WINDOW_HEIGHT)).convert_alpha()
         dim.fill((0, 0, 0, 125))
         self.screen.blit(dim, (0, 0))
@@ -699,6 +724,14 @@ class Game:
     def render_stats_text(self):
         self.text_surfaces['stats'] = self.fonts['stats'].render(f"Level: {self.level}    Health: {self.player.health}", True, COLOR['stats_text'])
         self.screen.blit(self.text_surfaces['stats'], self.text_rects['stats'])
+
+    def render_timer_text(self):
+        minutes = int(self.play_time // 60)
+        seconds = float(self.play_time % 60)
+        timer_text = f"Time: {minutes:02}:{seconds:04.1f}"
+
+        self.text_surfaces['timer'] = self.fonts['timer'].render(timer_text, True, COLOR['timer_text'])
+        self.screen.blit(self.text_surfaces['timer'], self.text_rects['timer'])
 
 # --- Initialization steps ---
     def init_paths(self):
@@ -774,21 +807,24 @@ class Game:
                       'publisher': pygame.font.Font(self.font_2, PUBLISHER_FONT_SIZE),
                       'hint': pygame.font.Font(self.font_2, HINT_FONT_SITZE),
                       'title': pygame.font.Font(self.font_1, TITLE_FONT_SIZE),
-                      'game_over': pygame.font.Font(self.font_1, GAME_OVER_FONT_SIZE)}
+                      'game_over': pygame.font.Font(self.font_1, GAME_OVER_FONT_SIZE),
+                      'timer': pygame.font.Font(self.font_1, TIMER_FONT_SIZE)}
 
         self.text_surfaces = {'stats': self.fonts['stats'].render(f"Level: 1 Health: {PLAYER_HEALTH}", True, COLOR['stats_text']),
                               'publisher': self.fonts['publisher'].render("Ralphus Studios", True, COLOR['publisher']),
                               'start_hint': self.fonts['hint'].render("Start game: RETURN\nClose game: ESC", True, COLOR['start_hint']),
                               'game_over_hint': self.fonts['hint'].render("Play again: RETURN\nClose game: ESC", True, COLOR['game_over_hint']),
                               'title': self.fonts['title'].render(GAME_NAME, True, COLOR['title']),
-                              'game_over': self.fonts['game_over'].render("GAME OVER", True, COLOR['game_over'])}
+                              'game_over': self.fonts['game_over'].render("GAME OVER", True, COLOR['game_over']),
+                              'timer': self.fonts['timer'].render("Time: 00:00.0", True, COLOR['timer_text'])}
 
         self.text_rects = {'stats': self.text_surfaces['stats'].get_rect(topleft=(10, 10)),
                            'publisher': self.text_surfaces['publisher'].get_rect(bottomright=(WINDOW_WIDTH-10, WINDOW_HEIGHT-10)),
                            'start_hint': self.text_surfaces['start_hint'].get_rect(bottomleft=(10, WINDOW_HEIGHT-10)),
                            'game_over_hint': self.text_surfaces['game_over_hint'].get_rect(bottomleft=(10, WINDOW_HEIGHT-10)),
                            'title': self.text_surfaces['title'].get_rect(center=WINDOW_CENTER),
-                           'game_over': self.text_surfaces['game_over'].get_rect(center=WINDOW_CENTER)}
+                           'game_over': self.text_surfaces['game_over'].get_rect(center=WINDOW_CENTER),
+                           'timer': self.text_surfaces['timer'].get_rect(topright=(WINDOW_WIDTH-10, 10))}
 
     def init_sprites(self):
         # sprite groups
@@ -801,10 +837,15 @@ class Game:
 
     def init_game_state(self):
         self.level_set_up = False
-        self.level = 10
+        self.level = 1
         self.show_start_hint = False
         self.show_game_over_hint = False
-        self.player = Player(self, (self.all_sprites, self.player_sprites), (100, WINDOW_CENTER[1]))
+        self.player = Player(self, (self.all_sprites, self.player_sprites), (50, WINDOW_CENTER[1]))
+        self.play_time = 0.0
+        self.play_start = None
+        self.pause_start = 0.0
+        self.total_paused = 0.0
+        self.is_paused = False
 
     @property
     def runtime(self):

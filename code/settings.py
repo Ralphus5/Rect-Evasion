@@ -8,7 +8,7 @@ WINDOW_WIDTH: int = 1280
 WINDOW_HEIGHT: int = 720
 WINDOW_CENTER = (WINDOW_WIDTH/2, WINDOW_HEIGHT/2)
 BASE_RESOLUTION = (WINDOW_WIDTH, WINDOW_HEIGHT)
-FPS: Annotated[int, (25-120)] = 60
+FPS: Annotated[int, (25-120)] = 120
 
 COLOR: dict = {'start_screen_bg': "#440083",
                'gameplay_bg': "#000000",
@@ -18,13 +18,15 @@ COLOR: dict = {'start_screen_bg': "#440083",
                'start_hint': "#D50303",
                'game_over_hint': "#FF0000",
                'title': "#00EAFF",
-               'game_over': "#FF0000"}
+               'game_over': "#FF0000",
+               'timer_text': "#FFFFFF"}
 
 STATS_TEXT_FONT_SIZE: int = 25
 PUBLISHER_FONT_SIZE: int = 25
 HINT_FONT_SITZE: int = 25
 TITLE_FONT_SIZE: int = 110
 GAME_OVER_FONT_SIZE: int = 110
+TIMER_FONT_SIZE: int = 25
 
 
 # --- AUDIO ---
@@ -38,7 +40,7 @@ HEAL_SOUND_VOLUME: Annotated[float, (0.0-1.0)] = 1.0
 # --- Gameplay ---
 PLAYER_HEALTH: int = 3
 PLAYER_SPEED: Annotated[int, (50-1000)] = 550
-PLAYER_SLOWED_SPEED: Annotated[int, (50-500)] = 150
+PLAYER_SLOWED_SPEED: Annotated[int, (50-500)] = 200
 UNMOVABLE_AFTER_HIT_TIME: float = 0.6
 
 

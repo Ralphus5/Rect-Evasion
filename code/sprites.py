@@ -86,6 +86,47 @@ class RotatingObstacle(Object):
         self.rect = self.image.get_rect(center=self._center)
         self.mask = pygame.mask.from_surface(self.image)
 
+class HorizontalMovingObstacle(Object):
+    def __init__(self, game, color, size, anchor, pos, move_range, speed):
+        self.game = game
+        groups = (self.game.all_sprites, self.game.obstacle_sprites)
+        super().__init__(groups, color, size, anchor, pos)
+        self.start_x = self.rect.x
+        self.move_range = move_range
+        self.speed = speed
+        self.direction = 1  # 1: right, -1: left
+
+    def update(self, dt):
+        self.rect.x += self.direction * self.speed * dt
+        if self.rect.x < self.start_x:
+            self.rect.x = self.start_x
+            self.direction = 1
+        elif self.rect.x > self.start_x + self.move_range:
+            self.rect.x = self.start_x + self.move_range
+            self.direction = -1
+
+class VerticalMovingObstacle(Object):
+    def __init__(self, game, color, size, anchor, pos, move_range, speed=150):
+        self.game = game
+        groups = (self.game.all_sprites, self.game.obstacle_sprites)
+        super().__init__(groups, color, size, anchor, pos)
+        self.start_y = self.rect.y
+        self.move_range = move_range
+        self.speed = speed
+        self.direction = 1
+        self.hight = size[1]
+
+    def update(self, dt):
+        self.rect.y += self.direction * self.speed * dt
+        if self.rect.y < self.start_y:
+            self.rect.y = self.start_y
+            self.direction = 1
+        elif self.rect.y > self.start_y + self.move_range:
+            self.rect.y = self.start_y + self.move_range
+            self.direction = -1
+        if self.rect.y > WINDOW_HEIGHT+self.hight:
+            self.rect.y = -self.hight
+
 class HealingItem(Object):
     def __init__(self, game, size, anchor, pos):
         self.game = game
