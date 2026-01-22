@@ -335,11 +335,16 @@ class Game:
                     self.player_start_pos = (240, 650)
                     HorizontalMovingObstacle(self, (255,0,100), (200, 30), 'topleft', (0, 450), move_range=200, speed=500)
                     VerticalMovingObstacle(self, (255,0,100), (30, 180), 'bottomleft', (400, 630), move_range=90, init_dir=-1, speed=300)
-                    # to be continued
+                    Obstacle(self, (255,0,0), (30, 600), 'center', (WINDOW_CENTER[0], WINDOW_HEIGHT-300))
+                    VerticalMovingObstacle(self, (255,0,100), (30, 30), 'center', (WINDOW_CENTER[0], 15), move_range=90, speed=300)
+                    HorizontalMovingObstacle(self, (255,0,100), (200, 30), 'topright', (WINDOW_WIDTH-200, 450), move_range=200, speed=700)
+                    VerticalMovingObstacle(self, (255,0,100), (30, 180), 'bottomright', (WINDOW_WIDTH-400, 630), move_range=90, init_dir=-1, speed=500)
+                    Goal(self, (50, 50), 'bottomright', (WINDOW_WIDTH, WINDOW_HEIGHT))
             case 15:
                 if not self.level_set_up:
                     self.level_set_up = True
-                    self.player_start_pos = None
+                    self.player_start_pos = (WINDOW_WIDTH-100, WINDOW_HEIGHT-100)
+                    Obstacle(self, (255,0,0), (WINDOW_WIDTH, 30), 'midtop', (WINDOW_CENTER[0], 0))
             case 16:
                 if not self.level_set_up:
                     self.level_set_up = True
@@ -858,7 +863,7 @@ class Game:
 
     def init_game_state(self):
         self.level_set_up = False
-        self.level = 14
+        self.level = 15
         self.show_start_hint = False
         self.show_game_over_hint = False
         self.player = Player(self, (self.all_sprites, self.player_sprites), (50, WINDOW_CENTER[1]))
