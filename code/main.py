@@ -220,7 +220,7 @@ class Game:
                     RotatingObstacle(self, (255,100,0), (250, 25), 'center', (WINDOW_CENTER[0]-200, WINDOW_CENTER[1]), rotation_speed=250)
                     RotatingObstacle(self, (255,100,0), (250, 25), 'center', (WINDOW_CENTER[0]-200, 570), rotation_speed=-250)
                     HealingItem(self, (30, 30), 'center', (WINDOW_CENTER[0]+150, 250))
-                    Goal(self, (100, 100), 'midleft', (0, WINDOW_CENTER[1]+50))
+                    Goal(self, (100, 100), 'center', (50, WINDOW_CENTER[1]))
             case 8:
                 if not self.level_set_up:
                     self.level_set_up = True
@@ -344,15 +344,49 @@ class Game:
                 if not self.level_set_up:
                     self.level_set_up = True
                     self.player_start_pos = (WINDOW_WIDTH-100, WINDOW_HEIGHT-100)
-                    Obstacle(self, (255,0,0), (WINDOW_WIDTH, 30), 'midtop', (WINDOW_CENTER[0], 0))
+                    # lower row
+                    Obstacle(self, (255,0,0), (1100, 30), 'topright', (WINDOW_WIDTH, 500))
+                    VerticalMovingObstacle(self, (255,0,100), (60, 60), 'center', (900, 555), move_range=135, speed=350)
+                    VerticalMovingObstacle(self, (255,0,100), (60, 60), 'center', (700, 555), move_range=135, speed=400)
+                    VerticalMovingObstacle(self, (255,0,100), (60, 60), 'center', (500, 555), move_range=135, speed=450)
+                    VerticalMovingObstacle(self, (255,0,100), (60, 60), 'center', (300, 555), move_range=135, speed=500)
+                    HorizontalMovingObstacle(self, (255,0,100), (60, 30), 'topleft', (0, 500), move_range=120, speed=400)
+                    # mid row
+                    Obstacle(self, (255,0,0), (1100, 30), 'topleft', (0, 280))
+                    VerticalMovingObstacle(self, (255,0,100), (60, 60), 'center', (300, 335), move_range=135, speed=500)
+                    VerticalMovingObstacle(self, (255,0,100), (60, 60), 'center', (500, 335), move_range=135, speed=550)
+                    VerticalMovingObstacle(self, (255,0,100), (60, 60), 'center', (700, 335), move_range=135, speed=600)
+                    VerticalMovingObstacle(self, (255,0,100), (60, 60), 'center', (900, 335), move_range=135, speed=650)
+                    HorizontalMovingObstacle(self, (255,0,100), (60, 30), 'topleft', (1100, 280), move_range=120, speed=500)
+                    # upper row
+                    Obstacle(self, (255,0,0), (1280, 50), 'topright', (WINDOW_WIDTH, 0))
+                    VerticalMovingObstacle(self, (255,0,100), (150, 150), 'topleft', (500, 50), move_range=80, speed=175)
+                    HealingItem(self, (30, 30), 'bottomleft', (60, 180))
+                    Goal(self, (150, 150), 'bottomleft', (150, 240))
             case 16:
                 if not self.level_set_up:
                     self.level_set_up = True
-                    self.player_start_pos = None
+                    self.player_start_pos = (250, 160)
+                    Obstacle(self, (255,0,0), (30, 350), 'bottomleft', (0, WINDOW_HEIGHT))
+                    Obstacle(self, (255,0,0), (300, 30), 'bottomleft', (0, 370))
+                    Obstacle(self, (255,0,0), (30, 550), 'topleft', (400, 0))
+                    Obstacle(self, (255,0,0), (1280, 30), 'bottomleft', (0, WINDOW_HEIGHT))
+                    RotatingObstacle(self, (255,100,0), (350, 30), 'center', (210,530), rotation_speed=200)
+                    VerticalMovingObstacle(self, (255,0,100), (30, 30), 'topleft', (400, 550), move_range=110, speed=180)
+                    Obstacle(self, (255,0,0), (700, 30), 'topleft', (400, 520))
+                    RotatingObstacle(self, (255,100,0), (140, 25), 'center', (750,620), rotation_speed=-250)
+                    VerticalMovingObstacle(self, (255,0,100), (150, 30), 'topleft', (950, 550), move_range=110, speed=250)
+                    Obstacle(self, (255,0,0), (400, 30), 'bottomleft', (430, 160))
+                    Obstacle(self, (255,0,0), (380, 30), 'bottomleft', (900, 160))
+                    RotatingObstacle(self, (255,100,0), (500, 30), 'center', (1030,250), rotation_speed=-220)
+                    RotatingObstacle(self, (255,100,0), (350, 30), 'center', (610,340), rotation_speed=200)
+                    HealingItem(self, (30, 30), 'center', (500, 450))
+                    Goal(self, (100, 100), 'topleft', (500, 15))
             case 17:
                 if not self.level_set_up:
                     self.level_set_up = True
-                    self.player_start_pos = None
+                    self.player_start_pos = (580, 50)
+                    Obstacle(self, (255,0,0), (30, 600), 'topleft', (200, 0))
             case 18:
                 if not self.level_set_up:
                     self.level_set_up = True
@@ -863,7 +897,7 @@ class Game:
 
     def init_game_state(self):
         self.level_set_up = False
-        self.level = 15
+        self.level = 17
         self.show_start_hint = False
         self.show_game_over_hint = False
         self.player = Player(self, (self.all_sprites, self.player_sprites), (50, WINDOW_CENTER[1]))
