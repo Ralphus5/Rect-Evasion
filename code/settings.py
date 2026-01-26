@@ -19,7 +19,10 @@ COLOR: dict = {'start_screen_bg': "#440083",
                'game_over_hint': "#FF0000",
                'title': "#00EAFF",
                'game_over': "#FF0000",
-               'timer_text': "#FFFFFF"}
+               'timer_text': "#FFFFFF",
+               'final_time': "#00EAFF",
+               'game_beaten_bg': "#440083",
+               'paused_text': "#FFFFFF"}
 
 STATS_TEXT_FONT_SIZE: int = 25
 PUBLISHER_FONT_SIZE: int = 25
@@ -27,6 +30,8 @@ HINT_FONT_SITZE: int = 25
 TITLE_FONT_SIZE: int = 110
 GAME_OVER_FONT_SIZE: int = 110
 TIMER_FONT_SIZE: int = 25
+FINAL_TIME_FONT_SIZE: int = 60
+PAUSED_TEXT_FONT_SIZE: int = 100
 
 
 # --- AUDIO ---

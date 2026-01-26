@@ -30,8 +30,6 @@ class Game:
                 self.pause_menu(dt)
             elif self.state == 'game_over':
                 self.game_over_screen(dt)
-            elif self.state == 'settings':
-                self.settings_menu(dt)
             present_frame(self)
             self.clock.tick(FPS)
 
@@ -61,8 +59,13 @@ class Game:
         # --- Play state ---
             elif self.state == 'play':
                 if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_ESCAPE:
+                    if not self.game_beaten and event.key == pygame.K_ESCAPE:
                         self.requested_state = 'stop'
+                    if self.game_beaten:
+                        if event.key == pygame.K_RETURN:
+                            self.requested_state = 'start'
+                        if event.key == pygame.K_ESCAPE:
+                            self.running = False
 
         # --- Stop state ---
             elif self.state == 'stop':
@@ -386,348 +389,102 @@ class Game:
                 if not self.level_set_up:
                     self.level_set_up = True
                     self.player_start_pos = (580, 50)
-                    Obstacle(self, (255,0,0), (30, 600), 'topleft', (200, 0))
+                    Obstacle(self, (255,0,0), (30, 720), 'topleft', (385, 0))
+                    Obstacle(self, (255,0,0), (30, 620), 'topleft', (785, 0))
+                    HorizontalMovingObstacle(self, (255,0,100), (130, 30), 'center', (450, 200), move_range=100, speed=400)
+                    HorizontalMovingObstacle(self, (255,0,100), (130, 30), 'center', (650, 200), move_range=100, init_dir=-1, speed=400)
+                    HorizontalMovingObstacle(self, (255,0,100), (130, 30), 'center', (450, 300), move_range=100, speed=400)
+                    HorizontalMovingObstacle(self, (255,0,100), (130, 30), 'center', (650, 300), move_range=100, init_dir=-1, speed=400)
+                    HorizontalMovingObstacle(self, (255,0,100), (130, 30), 'center', (450, 400), move_range=100, speed=400)
+                    HorizontalMovingObstacle(self, (255,0,100), (130, 30), 'center', (650, 400), move_range=100, init_dir=-1, speed=400)
+                    HorizontalMovingObstacle(self, (255,0,100), (130, 30), 'center', (450, 500), move_range=100, speed=400)
+                    HorizontalMovingObstacle(self, (255,0,100), (130, 30), 'center', (650, 500), move_range=100, init_dir=-1, speed=400)
+                    HorizontalMovingObstacle(self, (255,0,100), (130, 30), 'center', (450, 600), move_range=100, speed=400)
+                    HorizontalMovingObstacle(self, (255,0,100), (130, 30), 'center', (650, 600), move_range=100, init_dir=-1, speed=400)
+                    RotatingObstacle(self, (255,100,0), (450, 30), 'center', (1050,600), rotation_speed=260)
+                    RotatingObstacle(self, (255,100,0), (450, 30), 'center', (1050,300), rotation_speed=-260)
+                    Goal(self, (100, 100), 'topleft', (1000, 50))
             case 18:
                 if not self.level_set_up:
                     self.level_set_up = True
-                    self.player_start_pos = None
+                    self.player_start_pos = (1050,100)
+                    Obstacle(self, (255,0,0), (40, 620), 'topleft', (800, 0))
+                    Obstacle(self, (255,0,0), (40, 620), 'topright', (1280, 0))
+                    VerticalMovingObstacle(self, (255,0,100), (200, 30), 'center', (940, 300), move_range=150, speed=400)
+                    VerticalMovingObstacle(self, (255,0,100), (200, 30), 'center', (1140, 402), move_range=150, init_dir=-1, speed=400)
+                    HorizontalMovingObstacle(self, (255,0,100), (200, 30), 'center', (-100, 650), move_range=5000, speed=500)
+                    HorizontalMovingObstacle(self, (255,0,100), (200, 30), 'center', (-600, 700), move_range=5000, speed=500)
+                    HorizontalMovingObstacle(self, (255,0,100), (200, 30), 'center', (-1100, 650), move_range=5000, speed=500)
+                    HorizontalMovingObstacle(self, (255,0,100), (200, 30), 'center', (-1500, 700), move_range=5000, speed=500)
+                    Obstacle(self, (255,0,0), (40, 620), 'bottomleft', (400, 720))
+                    RotatingObstacle(self, (255,100,0), (350, 30), 'center', (625,340), rotation_speed=400)
+                    VerticalMovingObstacle(self, (255,0,100), (200, 30), 'center', (100, 330), move_range=150, speed=400)
+                    VerticalMovingObstacle(self, (255,0,100), (200, 30), 'center', (300, 350), move_range=150, init_dir=-1, speed=400)
+                    Goal(self, (50, 50), 'center', (200, 600))
             case 19:
                 if not self.level_set_up:
                     self.level_set_up = True
-                    self.player_start_pos = None
+                    self.player_start_pos = (200,600)
+                    Obstacle(self, (255,0,0), (1280, 30), 'bottomleft', (0, WINDOW_HEIGHT))
+                    Obstacle(self, (255,0,0), (1200, 30), 'bottomleft', (0, WINDOW_HEIGHT-220))
+                    Obstacle(self, (255,0,0), (1200, 30), 'bottomleft', (80, WINDOW_HEIGHT-440))
+                    HorizontalMovingObstacle(self, (255,0,100), (30, 30), 'bottomleft', (1200, WINDOW_HEIGHT-220), move_range=50, speed=150)
+                    HorizontalMovingObstacle(self, (255,0,100), (30, 30), 'bottomleft', (0, WINDOW_HEIGHT-440), move_range=50, speed=150)
+                    HorizontalMovingObstacle(self, (255,0,100), (30, 30), 'bottomleft', (-130, WINDOW_HEIGHT-250), move_range=5000, speed=800)
+                    HorizontalMovingObstacle(self, (255,0,100), (30, 30), 'bottomleft', (-330, WINDOW_HEIGHT-300), move_range=5000, speed=800)
+                    HorizontalMovingObstacle(self, (255,0,100), (30, 30), 'bottomleft', (-530, WINDOW_HEIGHT-350), move_range=5000, speed=800)
+                    HorizontalMovingObstacle(self, (255,0,100), (30, 30), 'bottomleft', (-730, WINDOW_HEIGHT-400), move_range=5000, speed=800)
+                    RotatingObstacle(self, (255,100,0), (120, 30), 'center', (400, 60), rotation_speed=-200)
+                    RotatingObstacle(self, (255,100,0), (120, 30), 'center', (400, 180), rotation_speed=200)
+                    RotatingObstacle(self, (255,100,0), (120, 30), 'center', (600, 60), rotation_speed=200)
+                    RotatingObstacle(self, (255,100,0), (120, 30), 'center', (600, 180), rotation_speed=-200)
+                    RotatingObstacle(self, (255,100,0), (120, 30), 'center', (800, 60), rotation_speed=-200)
+                    RotatingObstacle(self, (255,100,0), (120, 30), 'center', (800, 180), rotation_speed=200)
+                    VerticalMovingObstacle(self, (255,0,100), (30, 80), 'center', (WINDOW_CENTER[0]-50, 540), move_range=110, speed=300)
+                    VerticalMovingObstacle(self, (255,0,100), (30, 80), 'center', (WINDOW_CENTER[0]+160, 540), move_range=110, init_dir=-1, speed=300)
+                    HorizontalMovingObstacle(self, (255,0,100), (30, 30), 'center', (WINDOW_CENTER[0]-20, 515), move_range=150, speed=150)
+                    HorizontalMovingObstacle(self, (255,0,100), (30, 30), 'center', (WINDOW_CENTER[0]-20, 675), move_range=150, speed=150)
+                    HealingItem(self, (30, 30), 'center', (600, 25))
+                    Goal(self, (100, 100), 'center', (1200, 140))
             case 20:
                 if not self.level_set_up:
                     self.level_set_up = True
-                    self.player_start_pos = None
-            case 21:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 22:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 23:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 24:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 25:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 26:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 27:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 28:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 29:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 30:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 31:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 32:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 33:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 34:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 35:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 36:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 37:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 38:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 39:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 40:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 41:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 42:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 43:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 44:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 45:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 46:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 47:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 48:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 49:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 50:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 51:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 52:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 53:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 54:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 55:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 56:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 57:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 58:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 59:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 60:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 61:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 62:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 63:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 64:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 65:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 66:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 67:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 68:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 69:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 70:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 71:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 72:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 73:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 74:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 75:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 76:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 77:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 78:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 79:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 80:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 81:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 82:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 83:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 84:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 85:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 86:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 87:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 88:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 89:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 90:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 91:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 92:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 93:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 94:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 95:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 96:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 97:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 98:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 99:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
-            case 100:
-                if not self.level_set_up:
-                    self.level_set_up = True
-                    self.player_start_pos = None
+                    self.player_start_pos = (1100, 140)
+                    Obstacle(self, (255,0,0), (1280, 50), 'topleft', (0, 0))
+                    Obstacle(self, (255,0,0), (1280, 50), 'bottomleft', (0, 720))
+                    Obstacle(self, (255,0,0), (50, 720), 'topleft', (0, 0))
+                    Obstacle(self, (255,0,0), (50, 720), 'topright', (1280, 0))
+                    RotatingObstacle(self, (255,100,0), (400, 20), 'center', (WINDOW_CENTER[0], WINDOW_CENTER[1]), rotation_speed=-450)
+                    HealingItem(self, (30, 30), 'center', (200, 200))
+                    HealingItem(self, (30, 30), 'center', (1080, 580))
+                    HealingItem(self, (30, 30), 'center', (200, 580))
+                    HealingItem(self, (30, 30), 'center', (1080, 200))
+                    Goal(self, (60, 60), 'center', WINDOW_CENTER)
             case _:
-                # game beaten
-                pass
+                # --- game beaten ---
+                if not self.level_set_up:
+                    self.level_set_up = True
+                    self.player_start_pos = None
+                    self.game_beaten = True
+                    self.final_time = self.play_time
+                    minutes = int(self.final_time // 60)
+                    seconds = float(self.final_time % 60)
+                    timer_text = f"Time: {minutes:02}:{seconds:04.1f}"
+                    self.text_surfaces['final_time'] = self.fonts['final_time'].render(f"Final {timer_text}", True, COLOR['final_time'])
+                    self.text_rects['final_time'] = self.text_surfaces['final_time'].get_rect(center=WINDOW_CENTER)
+                    pygame.mixer.music.load(join(self.AUDIO_DIR, 'game_over_track.wav'))
+                    pygame.mixer.music.play()
 
-        self.all_sprites.update(dt)
-        self.collisions()
-        self.all_sprites.draw(self.screen)
-        self.render_stats_text()
-        self.render_timer_text()
+                self.screen.fill(COLOR['game_beaten_bg'])
+                self.screen.blit(self.text_surfaces['final_time'], self.text_rects['final_time'])
+                self.screen.blit(self.text_surfaces['start_hint'], self.text_rects['start_hint'])
+
+        if not self.game_beaten:
+            self.all_sprites.update(dt)
+            self.collisions()
+            self.all_sprites.draw(self.screen)
+            self.render_stats_text()
+            self.render_timer_text()
 
     def pause_menu(self, dt):
         self.screen.fill(COLOR['gameplay_bg'])
@@ -737,9 +494,7 @@ class Game:
         dim = pygame.Surface((WINDOW_WIDTH, WINDOW_HEIGHT)).convert_alpha()
         dim.fill((0, 0, 0, 125))
         self.screen.blit(dim, (0, 0))
-
-    def settings_menu(self, dt):
-        pass
+        self.screen.blit(self.text_surfaces['paused_text'], self.text_rects['paused_text'])
 
     def game_over_screen(self, dt):
         self.screen.fill(COLOR['game_over_bg'])
@@ -868,7 +623,9 @@ class Game:
                       'hint': pygame.font.Font(self.font_2, HINT_FONT_SITZE),
                       'title': pygame.font.Font(self.font_1, TITLE_FONT_SIZE),
                       'game_over': pygame.font.Font(self.font_1, GAME_OVER_FONT_SIZE),
-                      'timer': pygame.font.Font(self.font_1, TIMER_FONT_SIZE)}
+                      'timer': pygame.font.Font(self.font_1, TIMER_FONT_SIZE),
+                      'final_time': pygame.font.Font(self.font_1, FINAL_TIME_FONT_SIZE),
+                      'paused_text': pygame.font.Font(self.font_1, PAUSED_TEXT_FONT_SIZE)}
 
         self.text_surfaces = {'stats': self.fonts['stats'].render(f"Level: 1 Health: {PLAYER_HEALTH}", True, COLOR['stats_text']),
                               'publisher': self.fonts['publisher'].render("Ralphus Studios", True, COLOR['publisher']),
@@ -876,7 +633,9 @@ class Game:
                               'game_over_hint': self.fonts['hint'].render("Play again: RETURN\nClose game: ESC", True, COLOR['game_over_hint']),
                               'title': self.fonts['title'].render(GAME_NAME, True, COLOR['title']),
                               'game_over': self.fonts['game_over'].render("GAME OVER", True, COLOR['game_over']),
-                              'timer': self.fonts['timer'].render("Time: 00:00.0", True, COLOR['timer_text'])}
+                              'timer': self.fonts['timer'].render("Time: 00:00.0", True, COLOR['final_time']),
+                              'final_time': self.fonts['final_time'].render("Final Time: 00:00.0", True, COLOR['final_time']),
+                              'paused_text': self.fonts['paused_text'].render("PAUSED", True, COLOR['paused_text'])}
 
         self.text_rects = {'stats': self.text_surfaces['stats'].get_rect(topleft=(10, 10)),
                            'publisher': self.text_surfaces['publisher'].get_rect(bottomright=(WINDOW_WIDTH-10, WINDOW_HEIGHT-10)),
@@ -884,7 +643,9 @@ class Game:
                            'game_over_hint': self.text_surfaces['game_over_hint'].get_rect(bottomleft=(10, WINDOW_HEIGHT-10)),
                            'title': self.text_surfaces['title'].get_rect(center=WINDOW_CENTER),
                            'game_over': self.text_surfaces['game_over'].get_rect(center=WINDOW_CENTER),
-                           'timer': self.text_surfaces['timer'].get_rect(topright=(WINDOW_WIDTH-10, 10))}
+                           'timer': self.text_surfaces['timer'].get_rect(topright=(WINDOW_WIDTH-10, 10)),
+                           'final_time': self.text_surfaces['final_time'].get_rect(topright=(WINDOW_WIDTH-10, 10)),
+                           'paused_text': self.text_surfaces['paused_text'].get_rect(center=WINDOW_CENTER)}
 
     def init_sprites(self):
         # sprite groups
@@ -896,10 +657,14 @@ class Game:
         self.effect_sprites = pygame.sprite.Group()
 
     def init_game_state(self):
+        self.game_beaten = False
+        self.final_time = 0.0
         self.level_set_up = False
-        self.level = 17
+        self.level = 1
         self.show_start_hint = False
         self.show_game_over_hint = False
+        if getattr(self, 'player', None):
+            self.player.kill()
         self.player = Player(self, (self.all_sprites, self.player_sprites), (50, WINDOW_CENTER[1]))
         self.play_time = 0.0
         self.play_start = None

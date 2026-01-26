@@ -87,14 +87,20 @@ class RotatingObstacle(Object):
         self.mask = pygame.mask.from_surface(self.image)
 
 class HorizontalMovingObstacle(Object):
-    def __init__(self, game, color, size, anchor, pos, move_range, speed):
+    def __init__(self, game, color, size, anchor, pos, move_range, init_dir=1, speed=150):
         self.game = game
         groups = (self.game.all_sprites, self.game.obstacle_sprites)
         super().__init__(groups, color, size, anchor, pos)
         self.start_x = self.rect.x
         self.move_range = move_range
         self.speed = speed
-        self.direction = 1  # 1: right, -1: left
+        self.direction = init_dir  # 1: right, -1: left
+
+        # Set initial position based on direction
+        if self.direction == 1:  # Moving right
+            self.rect.x = self.start_x
+        elif self.direction == -1:  # Moving left
+            self.rect.x = self.start_x + self.move_range
 
     def update(self, dt):
         self.rect.x += self.direction * self.speed * dt
@@ -104,6 +110,8 @@ class HorizontalMovingObstacle(Object):
         elif self.rect.x > self.start_x + self.move_range:
             self.rect.x = self.start_x + self.move_range
             self.direction = -1
+        if self.rect.x > WINDOW_WIDTH + self.rect.width:
+            self.rect.x = -self.rect.width
 
 class VerticalMovingObstacle(Object):
     def __init__(self, game, color, size, anchor, pos, move_range, init_dir=1, speed=150):
